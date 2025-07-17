@@ -16,4 +16,18 @@
             </choose>
         </if>
     </select>
+    <insert id="boardInsert" parameterType="map">
+        INSERT INTO BOARD (b_no, b_writer, b_title, b_content, b_date)
+        VALUES (board_seq.NEXTVAL, #{b_writer}, #{b_title}, #{b_content}, SYSDATE)
+    </insert>
+    <update id="boardUpdate" parameterType="map">
+        UPDATE BOARD
+        SET
+            b_title = #{b_title},
+            b_content = #{b_content}
+        WHERE b_no = #{b_no}
+    </update>
+    <delete id="boardDelete" parameterType="int">
+        DELETE FROM BOARD WHERE b_no=#{b_no}
+    </delete>
 </mapper>

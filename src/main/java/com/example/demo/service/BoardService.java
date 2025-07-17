@@ -24,5 +24,26 @@ public class BoardService {
     return list;
   }
 
+  public int boardInsert(Map<String, Object> paramData) {
+    log.info("boardInsert");
+    int result = 0;
+    result = boardDao.boardInsert(paramData);
+    return  result;
+  }
+
+  public int boardUpdate(Map<String, Object> paramData) {
+    log.info("boardUpdate");
+    int result = 0;
+    result = boardDao.boardUpdate(paramData);
+    return result;
+  }
+
+  public int boardDelete(Map<String, Object> paramData) {
+    log.info("boardDelete");
+    int result = 0;
+    result = boardDao.boardDelete(paramData);
+    return result;
+  }
+
   
 }

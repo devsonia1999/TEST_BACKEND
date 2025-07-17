@@ -21,5 +21,25 @@ public class BoardDao {
     return list;
   }
 
-  
+  public int boardInsert(Map<String, Object> paramData) {
+    int result = 0;
+    result = sqlSessionTemplate.insert("boardInsert", paramData);
+    return result;
+  }
+
+  public int boardUpdate(Map<String, Object> paramData) {
+    int result = 0;
+    result = sqlSessionTemplate.update("boardUpdate", paramData);
+    return result;
+  }
+
+  public int boardDelete(Map<String, Object> paramData) {
+    int result = 0;
+    int b_no = 0;
+    if(paramData.containsKey("b_no")){
+        b_no = Integer.parseInt(paramData.get("b_no").toString());
+    }
+    result = sqlSessionTemplate.delete("boardDelete", b_no);
+    return result;
+  }
 }
