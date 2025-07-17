@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.empMapper">
+    <select id="boardList" resultType="map" parameterType="map">
+        SELECT BOARD.B_NO as "no", BOARD.B_WRITER as "writer", BOARD.B_TITLE as "title", BOARD.B_CONTENT as "content", BOARD.B_DATE as "date", BOARD.B_HIT as "hit" 
+        FROM BOARD
+        WHERE 1=1
+        <if test="B_NO>0">
+            <![CDATA[ AND BOARD.B_NO = #{B_NO} ]]>
+        </if>
+        <if test="gubun!=null">
+            <choose>
+                <when test="gubun.equals('B_NO')">
+                    AND B_NO = #{keyword}
+                </when>
+            </choose>
+        </if>
+    </select>
+</mapper>
