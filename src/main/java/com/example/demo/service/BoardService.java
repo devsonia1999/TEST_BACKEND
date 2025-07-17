@@ -44,6 +44,4 @@ public class BoardService {
     result = boardDao.boardDelete(paramData);
     return result;
   }
-
-  
 }
