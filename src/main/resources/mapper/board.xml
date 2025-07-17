@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.empMapper">
+<mapper namespace="com.example.demo.boardMapper">
     <select id="boardList" resultType="map" parameterType="map">
         SELECT BOARD.B_NO as "no", BOARD.B_WRITER as "writer", BOARD.B_TITLE as "title", BOARD.B_CONTENT as "content", BOARD.B_DATE as "date", BOARD.B_HIT as "hit" 
         FROM BOARD
