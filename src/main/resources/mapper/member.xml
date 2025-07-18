@@ -2,20 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.memberMapper">
     <!-- 회원 가입 -->
-    <insert id="insertMember" parameterType="map">
+    <insert id="memberInsert" parameterType="map">
         INSERT INTO members (
             id, username, password, email, created_at, updated_at, is_active
         )
         VALUES (
-            #{id}, #{username}, #{password}, #{email},
+            members_seq.NEXTVAL, #{username}, #{password}, #{email},
             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Y'
         )
     </insert>
 
-    <!-- 이메일 중복 체크 -->
-    <select id="emailExists" parameterType="string" resultType="int">
-        SELECT COUNT(*) FROM members WHERE email = #{email}
-    </select>
+    <!-- 회원 정보 수정 -->
+    <update id="memberUpdate" parameterType="map">
+        UPDATE members
+        SET username = #{username},
+            password = #{password},
+            email = #{email},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = #{id}
+    </update>
+
+    <!-- 회원 탈퇴 (is_active = 'N') -->
+    <update id="memberDelete" parameterType="int">
+        UPDATE members
+        SET is_active = 'N', updated_at = CURRENT_TIMESTAMP
+        WHERE id = #{id}
+    </update>
 
     <!-- 로그인 (username + password 체크) -->
     <select id="loginCheck" parameterType="map" resultType="map">
@@ -23,6 +35,11 @@
         WHERE username = #{username}
           AND password = #{password}
           AND is_active = 'Y'
+    </select>
+
+    <!-- 이메일 중복 체크 -->
+    <select id="emailExists" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM members WHERE email = #{email}
     </select>
 
     <!-- 회원 상세 조회 -->
@@ -35,20 +52,4 @@
         SELECT id, username, password, email, is_active FROM members ORDER BY id
     </select>
 
-    <!-- 회원 정보 수정 -->
-    <update id="updateMember" parameterType="map">
-        UPDATE members
-        SET username = #{username},
-            password = #{password},
-            email = #{email},
-            updated_at = CURRENT_TIMESTAMP
-        WHERE id = #{id}
-    </update>
-
-    <!-- 회원 탈퇴 (is_active = 'N') -->
-    <update id="deactivateMember" parameterType="int">
-        UPDATE members
-        SET is_active = 'N', updated_at = CURRENT_TIMESTAMP
-        WHERE id = #{id}
-    </update>
 </mapper>
